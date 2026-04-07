@@ -33,14 +33,37 @@
 -- Step 1: Create the database
 -- ============================================================
 
-
+DROP DATABASE IF EXISTS bookstore_db;
+CREATE DATABASE bookstore_db;
+\c bookstore_db;
 
 -- ============================================================
 -- Step 2: Create the table
 -- ============================================================
 
+DROP TABLE IF EXISTS books;
 
+CREATE TABLE books (
+    book_id SERIAL PRIMARY KEY,
+    title VARCHAR(150) NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    genre VARCHAR(50),
+    price NUMERIC(6,2) DEFAULT 0,
+    pages INT,
+    in_stock BOOLEAN DEFAULT TRUE,
+    UNIQUE(title, author)
+);
 
 -- ============================================================
 -- Step 3: Insert seed data (at least 8 rows)
 -- ============================================================
+
+INSERT INTO books (title, author, genre, price, pages, in_stock) VALUES
+('The Great Gatsby', 'F. Scott Fitzgerald', 'Fiction', 10.99, 180, TRUE),
+('1984', 'George Orwell', 'Dystopian', 12.50, 328, TRUE),
+('To Kill a Mockingbird', 'Harper Lee', 'Fiction', 9.99, 281, TRUE),
+('Pride and Prejudice', 'Jane Austen', 'Romance', 8.50, 279, TRUE),
+('The Hobbit', 'J.R.R. Tolkien', 'Fantasy', 15.00, 310, TRUE),
+('Beloved', 'Toni Morrison', 'Historical Fiction', 13.75, 324, TRUE),
+('The Catcher in the Rye', 'J.D. Salinger', 'Fiction', 11.25, 214, TRUE),
+('Moby Dick', 'Herman Melville', 'Adventure', 14.00, 635, TRUE);
